@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 # copyleft 2020
+# buy cypher with <3 https://github.com/z3r0n3t
 echo "
 **********************************
 ██████   ██████  ███████ ████████ 
@@ -14,7 +15,6 @@ echo "
 
 echo "starting install..."
 echo curent user is "$USER"
-echo "press ctrl-D to stop "
 echo "#####################"
 
 set -e
@@ -50,7 +50,7 @@ APT_SOURCES="$APT_SOURCELIST_DIR/sources.list"
 APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 APT_OPTIONS="$APT_OPTIONS -o dir::etc::sourcelist=$APT_SOURCES"
 
-rm -rf $APT_CACHE_DIR
+rm -rf "$APT_CACHE_DIR"
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 mkdir -p "$APT_SOURCELIST_DIR"
@@ -81,16 +81,23 @@ done
 
 topic "Rewrite package-config files"
 find "$BUILD_DIR"/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty -n 1 sed -i -e 's!^prefix=\(.*\)$!prefix='"$BUILD_DIR"'/.apt\1!g'
+# start logging
+clear
+echo "building logfile"
 echo "-------START NEW INSTALL-----" >> pget.log
 echo "install date:" >> pget.log
 date >> pget.log
+echo "system:"
+uname -a >> pget.log
+echo "user:"
+echo "$USER" >> pget.log
+echo "user home:"
+echo "$HOME" >> pget.log
 echo "install details" >> pget.log
 echo "package:" >> pget.log
 echo "$PACKAGE" >> pget.log
 echo "build dir:"  >> pget.log
 echo "$BUILD_DIR"  >> pget.log
-echo "user:"  >> pget.log
-echo "$USER"  >> pget.log
 echo "cahche_dir:" >> pget.log
 echo "$APT_CACHE_DIR" >> pget.log
 echo "source list dir:" >> pget.log
