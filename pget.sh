@@ -12,10 +12,10 @@ echo "
 "
 
 
-echo starting install...
+echo "starting install..."
 echo curent user is "$USER"
-echo press ctrl-D to stop 
-echo #####################
+echo "press ctrl-D to stop "
+echo "#####################"
 
 set -e
 
@@ -81,21 +81,21 @@ done
 
 topic "Rewrite package-config files"
 find "$BUILD_DIR"/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty -n 1 sed -i -e 's!^prefix=\(.*\)$!prefix='"$BUILD_DIR"'/.apt\1!g'
-echo -------START NEW INSTALL----- >> pget.log
-echo install date:
+echo "-------START NEW INSTALL-----" >> pget.log
+echo "install date:" >> pget.log
 date >> pget.log
-echo install details >> pget.log
-echo package: >> pget.log
+echo "install details" >> pget.log
+echo "package:" >> pget.log
 echo "$PACKAGE" >> pget.log
-echo build dir:  >> pget.log
+echo "build dir:"  >> pget.log
 echo "$BUILD_DIR"  >> pget.log
-echo user:  >> pget.log
+echo "user:"  >> pget.log
 echo "$USER"  >> pget.log
-echo cahche_dir: >> pget.log
-echo $APT_CACHE_DIR >> pget.log
-echo source list dir: >> pget.log
-echo $APT_SOURCELIST_DIR >> pget.log
-echo -------END NEW INSTALL------ >> pget.log
+echo "cahche_dir:" >> pget.log
+echo "$APT_CACHE_DIR" >> pget.log
+echo "source list dir:" >> pget.log
+echo "$APT_SOURCELIST_DIR" >> pget.log
+echo "-------END NEW INSTALL------" >> pget.log
 clear
 echo "install details saved to logfile"
 echo "TIP: to see the log file type cat pget.log"
